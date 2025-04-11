@@ -248,3 +248,11 @@ services:
       kafka-topics --bootstrap-server kafka:9092 --create --topic driver-positions-string-avro --partitions 3 --replication-factor 1 ;
       true'
 
+  tools:
+    image: cnfltraining/training-tools:6.0
+    container_name: tools
+    hostname: tools
+    volumes:
+      - .:/root/confluent-dev/
+    command: /bin/sh
+    tty: true
