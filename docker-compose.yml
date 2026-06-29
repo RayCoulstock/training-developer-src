@@ -221,6 +221,19 @@ services:
                       done; \
                       npm run start'"
 
+  webserver-dotnet:
+    build: ./webserver-dotnet
+    container_name: webserver-dotnet
+    hostname: webserver-dotnet
+    ports:
+      - 3005:8080
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_TOPIC: dotnet-messages
+    depends_on:
+      - kafka
+      - create-topics
+
   postgres:
     image: postgres:11.2-alpine
     restart: always
@@ -246,6 +259,7 @@ services:
       kafka-topics --bootstrap-server kafka:9092 --create --topic driver-augmented-avro --partitions 3 --replication-factor 1 ;
       kafka-topics --bootstrap-server kafka:9092 --create --topic _confluent-monitoring --partitions 12 --replication-factor 1 --config retention.ms=259200000 --config message.timestamp.type=LogAppendTime ;
       kafka-topics --bootstrap-server kafka:9092 --create --topic driver-positions-string-avro --partitions 3 --replication-factor 1 ;
+      kafka-topics --bootstrap-server kafka:9092 --create --topic dotnet-messages --partitions 3 --replication-factor 1 ;
       true'
 
   tools:
