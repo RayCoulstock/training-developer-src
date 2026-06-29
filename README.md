@@ -44,3 +44,19 @@ root@tools:/ exit
 #turn of the docker containers to save on resources
 $ docker-compose down -v zookeeper kafka tools
 ```
+
+# Optional .NET Kafka Webserver
+
+This repo also includes a small ASP.NET Core webserver for C# developers who want to experiment with Kafka from a browser instead of using the prebuilt Node webservers.
+
+```bash
+# Start Kafka, create the course topics, and run the .NET webserver
+$ docker-compose up -d zookeeper kafka create-topics webserver-dotnet
+```
+
+Open <http://localhost:3005> in your browser.
+
+* Use **Send** (`/produce`) to write a keyed string message into the `dotnet-messages` Kafka topic.
+* Use **Consume** (`/consume`) to view messages consumed from the same topic. The page refreshes automatically every two seconds.
+
+The implementation lives in `webserver-dotnet/Program.cs` and is intentionally small so it can be modified during class.
