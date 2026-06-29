@@ -3,7 +3,7 @@ WORKDIR /src
 COPY webserver-dotnet.csproj ./
 RUN dotnet restore
 COPY . ./
-RUN dotnet publish -c Release -o /app --no-restore
+RUN dotnet publish webserver-dotnet.csproj -c Release -o /app
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app

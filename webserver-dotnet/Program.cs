@@ -79,7 +79,7 @@ app.MapGet("/consume", (KafkaSettings settings) => Results.Content(Html.Page("Co
     </script>
     """), "text/html"));
 
-app.MapPost("/api/messages", async (ProduceRequest request, IProducer<string, string> producer, KafkaSettings settings) =>
+app.MapPost("/api/messages", async Task<IResult> (ProduceRequest request, IProducer<string, string> producer, KafkaSettings settings) =>
 {
     if (string.IsNullOrWhiteSpace(request.Value))
     {
